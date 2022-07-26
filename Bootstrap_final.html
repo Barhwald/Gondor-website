@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+        body {
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .heroimg {
+            background-image: linear-gradient(180.43deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 100%), url(https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Aoraki_-_Mt_Cook%2C_Aoraki_-_Mount_Cook_National_Park%2C_New_Zealand.jpg/1200px-Aoraki_-_Mt_Cook%2C_Aoraki_-_Mount_Cook_National_Park%2C_New_Zealand.jpg);
+            background-size: cover;
+            min-height: 53rem;
+            width: 100%;
+        }
+
+        .navbar {
+            top: 0;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            transition: all 0.3s ease;
+            height: max-content;
+        }
+
+        .navli {
+            list-style: none;
+            margin-left: 1rem;
+        }
+
+        .nava {
+            font-weight: 600;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .nava:hover {
+            color: unset;
+        }
+
+        #toggleable {
+            color: black;
+        }
+
+        .hero {
+            position: relative;
+            top: 10rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 7rem);
+        }
+
+        #btnHero {
+            border: 1px solid rgba(205, 170, 29, 1);
+            color: white;
+            width: fit-content;
+            text-decoration: none;
+            font-size: clamp(1rem, 1.3vw, 2rem);
+        }
+
+        #btnHero1 {
+            border: 1px solid rgba(205, 170, 29, 1);
+            color: black;
+            width: fit-content;
+            text-decoration: none;
+            font-size: clamp(1rem, 1.3vw, 2rem);
+            text-transform: uppercase;
+        }
+
+        #btnHero:hover,
+        #btnHero1:hover {
+            color: rgba(205, 170, 29, 1);
+        }
+
+        #iconContainer {
+            position: relative;
+            top: 3rem;
+        }
+
+        .zoom-img {
+            overflow: hidden;
+        }
+
+        .zoom-img>img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            transition: all .3s ease-in-out;
+        }
+
+        .zoom-img:hover>img {
+            transform: scale(1.2);
+        }
+
+        .bi:hover {
+            fill: rgba(205, 170, 29, 1);
+        }
+
+        svg {
+            vertical-align: unset;
+        }
+
+        #One {
+            margin-top: 6rem;
+            margin-bottom: 5rem;
+        }
+
+        .city::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 242, 242, 0) 100%);
+            z-index: -1;
+        }
+
+        .city {
+            background-image: url(https://www.itl.cat/pngfile/big/166-1664193_free-download-lord-of-the-rings-cartoon-wallpapers.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 43rem;
+            background-attachment: fixed;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .argonath {
+            z-index: 1;
+        }
+
+        #Two {
+            min-height: 43rem;
+        }
+
+        .nav {
+            margin-top: 3rem;
+        }
+
+        .nav-link {
+            color: gray;
+        }
+
+        @media (min-width: 408px) {
+            .heroimg {
+                min-height: 49rem;
+            }
+        }
+
+        @media (min-width: 366px) {
+            #iconContainer {
+                top: 5rem;
+            }
+        }
+
+        @media (min-width: 527px) {
+            #iconContainer {
+                top: 7rem;
+            }
+        }
+
+        @media (min-width: 600px) {
+            #border1 {
+                position: relative;
+                transform: translate(2rem, -6.5rem);
+                z-index: -1;
+            }
+
+            #border2 {
+                position: relative;
+                transform: translate(-2rem, -18.5rem);
+                z-index: -1;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #border1 {
+                transform: translate(2rem, -9.5rem);
+            }
+
+            #border2 {
+                transform: translate(-2rem, -25rem);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            #border1 {
+                transform: translate(2rem, -12rem);
+            }
+
+            #border2 {
+                transform: translate(-2rem, -29.5rem);
+            }
+        }
+
+        @media (min-width: 1400px) {
+            #border1 {
+                transform: translate(2rem, -14.25rem);
+            }
+
+            #border2 {
+                transform: translate(-2rem, -34.5rem);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heroimg">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container-fluid justify-content-around">
+                <a class="nava navbar-brand m-0 d-lg-none" href="#">Middle-Earth</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-around" id="navbarTogglerDemo02">
+                    <ul class="d-lg-flex flex-row m-0">
+                        <li class="navli">Immigration</li>
+                        <li class="navli">Taxes</li>
+                        <li class="navli">Education</li>
+                    </ul>
+                    <a class="nava navbar-brand m-0 d-none d-lg-inline-block" href="#">Middle-Earth</a>
+                    <ul class="d-lg-flex flex-row m-0">
+                        <li class="navli">News & Events</li>
+                        <li class="navli">Health</li>
+                        <li class="navli">Contact</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="hero container d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center">
+                <h6 class="text-center text-light"><span class="text-warning">Majesty</span>/Splendor</h6>
+                <h1 class="text-light text-center mt-5">Kingdom of Gondor</h1>
+                <p class="text-light mt-5 text-center w-50">The most prominent kingdom of Men in Middle-earth,
+                    bordered by Rohan to the north, Harad to the south, the cape of Andrast and the Sea to the west, and
+                    Mordor to the east.</p>
+                <a id="btnHero" class="mt-5 py-1 py-md-2 px-2 px-md-4" href="#">Come and visit</a>
+                <div class="container d-flex flex-column flex-md-row w-60 justify-content-between" id="iconContainer">
+                    <div>
+                        <ul class="list-unstyled list-inline mb-0 text-center">
+                            <li class="list-inline-item ms-4"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="bi bi-twitter text-white"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                </svg>
+                            </li>
+                            <li class="list-inline-item ms-4"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="bi bi-facebook text-white"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                </svg></li>
+                            <li class="list-inline-item ms-4"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="bi bi-instagram text-white"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                                </svg></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p id="address" class="text-white m-0 text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-pin-map me-4" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
+                                <path fill-rule="evenodd"
+                                    d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+                            </svg>
+                            163 Pelargir Alley, Minas Tirith, Middle-Earth
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="One">
+        <div class="container">
+            <div class="row flex-column-reverse flex-md-row">
+                <div class="col-md-2">
+                    <hr class="hr-sm bg-primary">
+                    <p class="fs-lg lh-lg text-black mb-5 mb-md-0 text-center text-md-start">
+                        The best soldiers in Middle-Earth.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="zoom-img"><img
+                            src="https://i.pinimg.com/736x/8a/46/8a/8a468aa6c21c25e1e6850427f76bd774.jpg" class="w-100"
+                            alt="soldier of Gondor"></div>
+                    <div class="border border-dark h-50 d-none d-md-block" id="border1"></div>
+                </div>
+                <div class="col-md-5 align-self-center mx-auto">
+                    <h2 class="text-center">Warfare</h2>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque omnis iure perspiciatis fuga a?
+                        Nobis nam error id ipsam porro, quidem laborum ullam hic? Iusto esse totam voluptate aliquid
+                        sunt?</p>
+                </div>
+            </div>
+        </div>
+        <div class="container pt-md-5">
+            <div class="row flex-column flex-md-row mt-md-5">
+                <div class="col-md-5 align-self-center mx-auto">
+                    <h2 class="text-center mt-5 mt-md-0">Art</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi explicabo corporis unde dolore nam,
+                        et, eos vel suscipit voluptates similique sint? Minus porro similique explicabo, eius veritatis
+                        sed architecto at!</p>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <hr class="hr-sm bg-primary">
+                    <p class="fs-lg lh-lg text-black mb-5 mb-md-0 text-center text-md-start">
+                        This image is so cool, aye?
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="zoom-img"><img
+                            src="https://cdn.shopify.com/s/files/1/0016/3024/0879/products/Captain_of_Gondor_FINAL_2400x.jpg?v=1532638201"
+                            class="w-100" id="soldierphoto1" alt="soldier of Gondor">
+                    </div>
+                    <div class="border border-dark h-50 d-none d-md-block" id="border2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="Two">
+        <div class="city d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-5">
+                        <p class="argonath text-center">"Gondor! Gondor, between the Mountains and the Sea!
+
+                            West Wind blew there; the light upon the Silver Tree
+
+                            Fell like bright rain in gardens of the Kings of old.
+
+                            O proud walls! White towers! O wingéd crown and throne of gold!
+
+                            O Gondor, Gondor! Shall Men behold the Silver Tree,
+
+                            Or West Wind blow again between the Mountains and the Sea?"
+                        <h5 class="text-end">J. R. R. Tolkien</h5>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section class="mt-5">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center ">
+                <h2>Hire us</h2>
+                <p class="w-50 text-center text-muted mt-3">Need an army? Want some help with battling orcs and other
+                    foul creatures? Our heroes, soldiers and services are at your disposal. Tell us what you need and we
+                    will do our best to match your desires. </p>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-lg-8">
+                    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-heroes-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-heroes" type="button" role="tab" aria-controls="pills-heroes"
+                                aria-selected="false">Heroes</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-soldiers-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-soldiers" type="button" role="tab" aria-controls="pills-soldiers"
+                                aria-selected="true">Soldiers</button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="row justify-content-around mt-5">
+                <div class="col-lg-8">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-heroes" role="tabpanel"
+                            aria-labelledby="pills-heroes-tab">
+                            <div class="row gx-5">
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="ratio ratio-1x1">
+                                                <img class="object-fit-cover img-fluid img-thumbnail rounded-circle"
+                                                    src="https://pbs.twimg.com/media/CiLOJNnUUAAAzAT.jpg"
+                                                    alt="pippin_photo">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Pippin
+                                            </h5>
+                                            <p>A hobbit, that will fight for you.</p>
+                                        </div>
+                                        <div class="col-2 text-end">200 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://www.scifimoviezone.com/imagefantasy/lotrtt023.jpg"
+                                                alt="damrod_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Madril
+                                            </h5>
+                                            <p>Madril was a Ranger of Ithilien, one of the most trusted of Faramir's
+                                                men.</p>
+                                        </div>
+                                        <div class="col-2 text-end">1000 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://taxor.ru/avatar/large/vlastelin_kolec/faramir.jpg"
+                                                alt="faramir_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Faramir
+                                            </h5>
+                                            <p>He is the second son of Denethor and brother to
+                                                Boromir.</p>
+                                        </div>
+                                        <div class="col-2 text-end">1200 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://64.media.tumblr.com/0882907a18848997a3d3cb4d0da99a09/335c2abda7eb51e4-da/s540x810/ac0fc474248d2d182aa72e33c3a9d7409bef2d71.jpg"
+                                                alt="boromir_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Boromir
+                                            </h5>
+                                            <p>He is the first son of Denethor and brother to Faramir.</p>
+                                        </div>
+                                        <div class="col-2 text-end">1400 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://scontent-waw1-1.xx.fbcdn.net/v/t1.6435-9/117521876_3602757279752529_5499517621597652992_n.jpg?stp=c166.0.640.640a_dst-jpg_p640x640&_nc_cat=101&ccb=1-5&_nc_sid=da31f3&_nc_ohc=Z_JF1ssd9Q4AX-dj7YY&_nc_ht=scontent-waw1-1.xx&oh=00_AT9anGLBPG9I3bha_aFphKQIaYvoekxrHt2TlDuvQ7KONQ&oe=62633DCD"
+                                                alt="ranger_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Barhwald
+                                            </h5>
+                                            <p>An Osgilliath veteran. Fought the forces of Mordor in the first line.
+                                            </p>
+                                        </div>
+                                        <div class="col-2 text-end">2400 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="ratio ratio-1x1">
+                                                <img class="object-fit-cover img-fluid img-thumbnail rounded-circle"
+                                                    src="https://i.pinimg.com/originals/9f/bf/be/9fbfbe490afbd7fddd2170d99365f9fb.png"
+                                                    alt="pippin_photo">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Aragorn
+                                            </h5>
+                                            <p>Isildur's heir and the eventual King of Gondor.
+                                            </p>
+                                        </div>
+                                        <div class="col-2 text-end">3000 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show" id="pills-soldiers" role="tabpanel"
+                            aria-labelledby="pills-soldiers-tab">
+                            <div class="row gx-5">
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://pcmedia.ign.com/pc/image/article/569/569622/the-lord-of-the-rings-the-battle-for-middle-earth-20041130005847644.jpg"
+                                                alt="infantry_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Infantry
+                                            </h5>
+                                            <p>The basic infantry of the forces of Gondor.</p>
+                                        </div>
+                                        <div class="col-2 text-end">200 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://pcmedia.ign.com/pc/image/article/569/569622/the-lord-of-the-rings-the-battle-for-middle-earth-20041130005848284.jpg"
+                                                alt="archers_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Archers
+                                            </h5>
+                                            <p>The basic ranged infantry in the forces of Gondor.</p>
+                                        </div>
+                                        <div class="col-2 text-end">220 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://pcmedia.ign.com/pc/image/article/569/569622/the-lord-of-the-rings-the-battle-for-middle-earth-20041130005848143.jpg"
+                                                alt="towerguard_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Towerguards
+                                            </h5>
+                                            <p>The elite pikemen infantry for Gondor.</p>
+                                        </div>
+                                        <div class="col-2 text-end">500 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://pcmedia.ign.com/pc/image/article/569/569622/the-lord-of-the-rings-the-battle-for-middle-earth-20041130005847831.jpg?fit=bounds&width=1280&height=720"
+                                                alt="cavalry_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Cavalry
+                                            </h5>
+                                            <p>The primary cavalry in the forces of Gondor.</p>
+                                        </div>
+                                        <div class="col-2 text-end">600 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://pcmedia.ign.com/pc/image/article/569/569622/the-lord-of-the-rings-the-battle-for-middle-earth-20041130005847378.jpg"
+                                                alt="standard_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Standard bearer
+                                            </h5>
+                                            <p>The Banner Carrier himself stands before the front line of the battalion.
+                                            </p>
+                                        </div>
+                                        <div class="col-2 text-end">400 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img class="img-fluid img-thumbnail rounded-circle"
+                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0OIZXq4TjuRv1GdgB01KzjjeJDrxHEAqAgQraqW7lqUuqH0OnAcKDPCPVO6EfWNkCZks&usqp=CAU"
+                                                alt="ranger_photo">
+                                        </div>
+                                        <div class="col-6">
+                                            <h5>
+                                                Ithilien rangers
+                                            </h5>
+                                            <p>The advanced ranged infantry of the forces of Gondor.</p>
+                                        </div>
+                                        <div class="col-2 text-end">500 crowns</div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="mt-5 mb-5">
+    <section style="background: whitesmoke; min-height: 25rem;">
+        <div class="container pt-5">
+            <div class="row justify-content-around">
+                <div class="col-lg-8">
+                    <h3 class="text-center">Make online reservation</h3>
+                    <form class="pt-4">
+                        <div class="row col-12 m-0">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="user_name">Full name</label>
+                                    <input class="form-control" id="user_name" name="user_name" type="text"
+                                        placeholder="Full name" required="">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="user_phone">Phone number</label>
+                                    <input class="form-control" id="user_phone" name="user_phone" type="tel"
+                                        placeholder="Phone number" required="">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="user_email">Email address</label>
+                                    <input class="form-control" id="user_email" name="user_email" type="email"
+                                        placeholder="Email address" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="guests">Guests</label>
+                                    <select class="form-select" id="guests" name="guests" required="">
+                                        <option value="1">Hero Pippin</option>
+                                        <option value="2" selected="">Hero Madril</option>
+                                        <option value="3">Hero Faramir</option>
+                                        <option value="4">Hero Boromir</option>
+                                        <option value="5">Hero Barhwald</option>
+                                        <option value="6">Hero Aragorn</option>
+                                        <option value="7">Soldier infantry</option>
+                                        <option value="8">Soldier archers</option>
+                                        <option value="9">Soldier towerguards</option>
+                                        <option value="10">Soldier cavalry</option>
+                                        <option value="11">Soldier standard bearer</option>
+                                        <option value="12">Soldier Ithilien rangers</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="date">Date</label>
+                                    <input class="form-control" id="date" name="date" type="date" value="2022-03-25"
+                                        required="">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="visually-hidden" for="time">Time</label>
+                                    <input class="form-control" id="time" name="time" type="time" value="12:00"
+                                        required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-around pt-4 pb-4 pb-md-0">
+                            <div class="col-3 text-center">
+                                <a id="btnHero1" class="mt-5 py-1 py-md-2 px-2 px-md-4" href="#">Reserve</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mt-5">
+        <div class="text-center">
+            <h2>What visitors say about us</h2>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner my-5">
+                <div class="carousel-item active">
+                    <div class="w-100 container">
+                        <div class="row justify-content-around">
+                            <div class="col-10">
+                                <div class="row justify-content-around flex-column-reverse flex-md-row align-items-center">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <p class="lh-sm fs-5">"Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                            Sed, voluptas rem quos recusandae distinctio nostrum quod perspiciatis nulla
+                                            velit id natus aut ullam repudiandae tenetur cupiditate ipsam iusto eligendi
+                                            optio?"</p>
+                                        <h5>Yaznag from Mordor</h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <div class="ratio ratio-1x1 text-end"
+                                            style="width: 14rem; height: auto; margin: 0 auto;">
+                                            <img class="object-fit-cover img-fluid img-thumbnail rounded-circle"
+                                                src="https://preview.redd.it/tcgbsdrm8eb31.jpg?auto=webp&s=75e06a40b2f78b5d0318a87814bf73a029d0d9d2"
+                                                alt="orc_photo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="w-100 container">
+                        <div class="row justify-content-around">
+                            <div class="col-10">
+                                <div class="row justify-content-around flex-column-reverse flex-md-row align-items-center">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <p class="lh-sm fs-5">"Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                            Sed, voluptas rem quos recusandae distinctio nostrum quod perspiciatis nulla
+                                            velit id natus aut ullam repudiandae tenetur cupiditate ipsam iusto eligendi
+                                            optio?"</p>
+                                        <h5>Eothred from Rohan</h5>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <div class="ratio ratio-1x1 text-end"
+                                            style="width: 14rem; height: auto; margin: 0 auto;">
+                                            <img class="object-fit-cover img-fluid img-thumbnail rounded-circle"
+                                                src="https://i.pinimg.com/originals/5a/48/d4/5a48d49ae9f41a064d00b0c6e91f9c71.jpg"
+                                                alt="rohirrim_photo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="w-100 container">
+                        <div class="row justify-content-around">
+                            <div class="col-10">
+                                <div class="row justify-content-around flex-column-reverse flex-md-row align-items-center">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <p class="lh-sm fs-5">"Mornin', nice day for fishin', ain't it? Huh-ha!"</p>
+                                        <h5>Baelin from Honeywood</h5>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <div class="ratio ratio-1x1 text-end"
+                                            style="width: 14rem; height: auto; margin: 0 auto;">
+                                            <img class="object-fit-cover img-fluid img-thumbnail rounded-circle"
+                                                src="https://pbs.twimg.com/media/E05eOgMUYAICtV_.jpg"
+                                                alt="baelin_photo">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.110510429742!2d175.67856801514984!3d-37.85770457974441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d6dab83b542928f%3A0x63a727a549c25050!2sHobbiton%20Village%2C%20New%20Zealand!5e0!3m2!1spl!2spl!4v1648383013089!5m2!1spl!2spl"
+        width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <footer class="bg-dark">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-11">
+                            <div class="row gx-5 justify-content-between">
+                                <div class="col-lg-5">
+                                    <h5 class="text-warning">About us</h5>
+                                    <p class="text-white-50 text-justify m-0">Before the Downfall of Númenor, Gondor was
+                                        home to many Númenórean colonists,
+                                        who either mixed blood with the indigenous Middle Men if they were friendly, or
+                                        dispersed them
+                                        into Ras Morthil, Dunland, and Drúadan Forest. Gondor, at a latitude comparable
+                                        to Venice, was a
+                                        more fertile region than Arnor to the north, and therefore it already had a
+                                        larger population
+                                        before the ships of Elendil's sons arrived, including a well-established city,
+                                        Pelargir.
+                                    </p>
+                                </div>
+                                <div class="col-lg-3 mt-4 mt-lg-0">
+                                    <h5 class="text-warning">Contact info</h5>
+                                    <div class="row text-white-50 gy-2">
+                                        <div class="col-2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-pin" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4.146.146A.5.5 0 0 1 4.5 0h7a.5.5 0 0 1 .5.5c0 .68-.342 1.174-.646 1.479-.126.125-.25.224-.354.298v4.431l.078.048c.203.127.476.314.751.555C12.36 7.775 13 8.527 13 9.5a.5.5 0 0 1-.5.5h-4v4.5c0 .276-.224 1.5-.5 1.5s-.5-1.224-.5-1.5V10h-4a.5.5 0 0 1-.5-.5c0-.973.64-1.725 1.17-2.189A5.921 5.921 0 0 1 5 6.708V2.277a2.77 2.77 0 0 1-.354-.298C4.342 1.674 4 1.179 4 .5a.5.5 0 0 1 .146-.354zm1.58 1.408-.002-.001.002.001zm-.002-.001.002.001A.5.5 0 0 1 6 2v5a.5.5 0 0 1-.276.447h-.002l-.012.007-.054.03a4.922 4.922 0 0 0-.827.58c-.318.278-.585.596-.725.936h7.792c-.14-.34-.407-.658-.725-.936a4.915 4.915 0 0 0-.881-.61l-.012-.006h-.002A.5.5 0 0 1 10 7V2a.5.5 0 0 1 .295-.458 1.775 1.775 0 0 0 .351-.271c.08-.08.155-.17.214-.271H5.14c.06.1.133.191.214.271a1.78 1.78 0 0 0 .37.282z" />
+                                            </svg></div>
+                                        <div class="col-10">163 Pelargir Alley, Minas Tirith, Middle-Earth</div>
+                                        <div class="col-2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-telephone-fill"
+                                                viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z">
+                                                </path>
+                                            </svg></div>
+                                        <div class="col-10">telephone number</div>
+                                        <div class="col-2"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-inbox" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm9.954 5H10.45a2.5 2.5 0 0 1-4.9 0H1.066l.32 2.562a.5.5 0 0 0 .497.438h12.234a.5.5 0 0 0 .496-.438L14.933 9zM3.809 3.563A1.5 1.5 0 0 1 4.981 3h6.038a1.5 1.5 0 0 1 1.172.563l3.7 4.625a.5.5 0 0 1 .105.374l-.39 3.124A1.5 1.5 0 0 1 14.117 13H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .106-.374l3.7-4.625z" />
+                                            </svg></div>
+                                        <div class="col-10">gondorgov@md.go</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 mt-4 mt-lg-0">
+                                    <h5 class="text-warning">Opening hours</h5>
+                                    <div class="row text-white-50">
+                                        <h6 class="text-warning">MONDAY-THURSDAY</h6>
+                                        <p>10:00 AM - 11:00 AM</p>
+                                        <h6 class="text-warning">FRIDAY-SUNDAY</h6>
+                                        <p>12:00 AM - 03:00 AM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-5 justify-content-between">
+                                <div class="col-lg-12">
+                                    <div class="row mt-3">
+                                        <div class="col-2 text-warning">
+                                            <hr class="hr-sm me-3" style="height: 1px;">
+                                        </div>
+                                        <div class="col-10 text-white-50">Michał Bylina 2022</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                let scroll = $(window).scrollTop();
+                if (scroll > 58) {
+                    $(".navbar").css("background", "white").css("color", "black");
+                    $(".nava").css("color", "black");
+                    $(".navbar-dark").addClass("navbar-light").removeClass("navbar-dark");
+                }
+
+                else {
+                    $(".navbar").css("background", "rgba(0, 0, 0, 0)").css("color", "white");
+                    $(".nava").css("color", "white");
+                    $(".navbar-light").addClass("navbar-dark").removeClass("navbar-light");
+                }
+            })
+        })
+    </script>
+</body>
+</html>
